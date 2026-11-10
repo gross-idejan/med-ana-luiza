@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f9f5f2">
+  <meta name="description" content="Acompanhamento privado dos cuidados diários de Ana Luiza, com registros salvos no dispositivo.">
+  <meta name="color-scheme" content="light">
+  <title>Cuidar · Rotina da Ana Luiza</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/icone.svg">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a href="#inicio" class="brand" aria-label="Início - Cuidar">
+        <span class="brand-symbol" aria-hidden="true">✳</span>
+        <span><strong>cuidar<span class="brand-dot">.</span></strong><small>Rotina da Ana Luiza</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="saved-chip" title="Os registros são salvos neste navegador, não em um servidor"><span class="saved-dot"></span> Salvo neste aparelho</span>
+        <button id="exportQuick" class="icon-button" type="button" title="Baixar backup dos registros" aria-label="Baixar backup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></svg></button>
+        <button id="settingsButton" class="icon-button" type="button" title="Configurações" aria-label="Abrir configurações"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2 2-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21h-3v-.8a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1-2-2 .1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H5v-3h.8a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L7 8l2-2 .1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6V4h3v.8a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3L18 6l2 2-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.8v3h-.8a1.7 1.7 0 0 0-1.8 1z"/></svg></button>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <section class="hero" aria-label="Boas-vindas">
+        <div class="hero-glow hero-glow-one"></div><div class="hero-glow hero-glow-two"></div>
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> ORGANIZAÇÃO COM CARINHO</p>
+          <h1>Um dia de cada vez,<br><em>com cuidado.</em></h1>
+          <p class="hero-description">Os horários, medicamentos e registros da Ana Luiza, organizados em um só lugar para deixar o dia a dia mais tranquilo.</p>
+          <div class="hero-tags"><span>♡ Feito para a família</span><span>✦ 5 dias organizados</span></div>
+        </div>
+        <div class="portrait-scene" aria-label="Espaço reservado para foto da Ana Luiza">
+          <div class="portrait-backdrop"></div>
+          <div class="portrait-frame"><span id="portraitFallback" class="portrait-fallback">AL<span>♡</span></span><img id="portraitImage" src="./assets/ana-luiza.jpg" alt="Foto da Ana Luiza" hidden></div>
+          <span class="portrait-bloom" aria-hidden="true">✿</span><span class="portrait-spark" aria-hidden="true">✳</span>
+        </div>
+      </section>
+
+      <section id="setupSection" class="setup-panel" hidden>
+        <div class="setup-icon" aria-hidden="true">♡</div>
+        <div class="setup-heading"><p class="eyebrow dark">PRIMEIRO ACESSO</p><h2>Vamos organizar o acompanhamento?</h2><p>Escolha a data do <strong>Dia 1 (sessão de quimioterapia)</strong>. As datas dos Dias 2 a 5 serão calculadas automaticamente.</p></div>
+        <form id="setupForm" class="setup-form">
+          <label class="field-label" for="setupDate">Data do Dia 1</label>
+          <input id="setupDate" type="date" required>
+          <label class="field-label" for="setupCaregiver">Nome de quem vai registrar <span>(opcional)</span></label>
+          <input id="setupCaregiver" type="text" maxlength="60" placeholder="Ex.: Vovó, mãe, cuidadora">
+          <button class="primary-button" type="submit">Começar acompanhamento <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="setup-footnote">Os registros ficam guardados neste navegador. Para usá-los em outro celular, é necessário transferir um backup.</p>
+      </section>
+
+      <div id="dashboard" hidden>
+        <section class="overview" aria-label="Resumo do acompanhamento">
+          <div class="overview-heading"><div><p class="eyebrow dark">SEU PAINEL</p><h2>Organização de cada dia <span aria-hidden="true">✿</span></h2></div><button id="todayButton" class="outline-button" type="button">Ir para hoje <span aria-hidden="true">↗</span></button></div>
+          <div class="summary-grid">
+            <div class="summary-card summary-card-featured"><div><p class="summary-label">DIA SELECIONADO</p><strong id="summaryDay" class="summary-big">Dia 1</strong><p id="summaryDate" class="summary-sub">—</p></div><span class="summary-art" aria-hidden="true">☀</span></div>
+            <div class="summary-card"><div><p class="summary-label">REGISTROS DO DIA</p><strong id="summaryCount" class="summary-big">0 <small>/ 0</small></strong><p id="summaryStatus" class="summary-sub">Aguardando registros</p></div><span id="summaryProgress" class="progress-circle" style="--progress:0%"><span id="progressPercent">0%</span></span></div>
+            <div class="summary-card"><div><p class="summary-label">PRÓXIMO HORÁRIO</p><strong id="summaryNext" class="summary-big">—</strong><p id="summaryNextLabel" class="summary-sub">Conforme programação</p></div><span class="summary-small-icon" aria-hidden="true">◷</span></div>
+          </div>
+        </section>
+
+        <section class="day-section" aria-label="Selecionar dia">
+          <div class="section-head"><div><p class="eyebrow dark">NAVEGUE PELOS DIAS</p><h2>Selecione um dia</h2></div><span id="cyclePeriod" class="period-caption"></span></div>
+          <div id="dayTabs" class="day-tabs" role="tablist" aria-label="Dias do acompanhamento"></div>
+        </section>
+
+        <div class="content-grid">
+          <section class="schedule-section" aria-labelledby="scheduleTitle">
+            <div class="section-head schedule-head"><div><p class="eyebrow dark" id="daySubheading">ROTINA</p><h2 id="scheduleTitle">Agenda de cuidados</h2><p id="dayIntro" class="section-description"></p></div><button id="printButton" class="text-icon-button" type="button" title="Imprimir os registros do dia"><span aria-hidden="true">⎙</span> Imprimir</button></div>
+            <div class="schedule-note"><span aria-hidden="true">ⓘ</span><span>Toque em <strong>Registrar</strong> depois que o cuidado acontecer. O horário real pode ser ajustado no registro. Um item não marcado <strong>não significa que foi tomado</strong>.</span></div>
+            <div id="timeline" class="timeline" aria-live="polite"></div>
+            <div id="dayFinished" class="day-finished" hidden>♡ Todos os itens planejados deste dia têm um registro. Confira os marcados como “não administrado” antes de considerar a rotina finalizada.</div>
+          </section>
+          <aside class="sidebar" aria-label="Anotações e orientações">
+            <section class="side-card notes-card"><div class="side-card-heading"><span class="side-card-icon">✎</span><div><h3>Anotações do dia</h3><p>Informações úteis para a família</p></div></div><label for="dayNotes" class="sr-only">Anotações sobre o dia selecionado</label><textarea id="dayNotes" rows="6" placeholder="Ex.: como ela se sentiu, alimentação, observações da equipe médica..."></textarea><p class="autosave-caption"><span aria-hidden="true">✓</span> Salvamento automático neste aparelho</p></section>
+            <section class="side-card guidance-card"><div class="side-card-heading"><span class="side-card-icon">♡</span><div><h3>Um cuidado importante</h3><p>Para registrar com segurança</p></div></div><p>Esta ferramenta reproduz a rotina informada pela família e <strong>não substitui a prescrição nem orientações médicas</strong>.</p><p>No horário das 20h, a opção de duas olanzapinas fica vinculada ao registro das 22h para ajudar a evitar duplicidade.</p><p>Se houver dúvidas sobre doses, substituições, atraso ou sintomas, confirme com a equipe de saúde.</p></section>
+            <section class="side-card history-card"><div class="side-card-heading"><span class="side-card-icon">↺</span><div><h3>Registros recentes</h3><p>Últimas alterações neste ciclo</p></div></div><div id="recentHistory" class="recent-history"></div></section>
+          </aside>
+        </div>
+      </div>
+    </main>
+    <footer class="footer"><span>Feito com <span aria-label="amor">♥</span> para cuidar da Ana Luiza.</span><span>Dados locais · Sem envio automático à internet</span></footer>
+  </div>
+
+  <dialog id="settingsDialog" class="modal"><form method="dialog" class="modal-shell"><div class="modal-head"><div><p class="eyebrow dark">CONFIGURAÇÕES</p><h2>Seu acompanhamento</h2></div><button class="modal-close" value="cancel" aria-label="Fechar configurações">×</button></div>
+    <div class="modal-body"><label class="field-label" for="caregiverName">Quem está registrando?</label><input id="caregiverName" type="text" maxlength="60" placeholder="Nome de quem cuida"><label class="field-label" for="cycleStartDate">Data inicial do ciclo ativo</label><input id="cycleStartDate" type="date"><p class="helper">Corrigir essa data não apaga registros já feitos.</p>
+    <label class="field-label" for="cyclePicker">Consultar outro ciclo</label><select id="cyclePicker"></select>
+    <div class="modal-divider"></div><h3>Trocar de ciclo</h3><p class="helper">Quando começar uma nova sessão, inicie outro ciclo. Os anteriores permanecem no histórico deste navegador.</p><div class="inline-form"><input id="newCycleDate" type="date" aria-label="Data do primeiro dia do novo ciclo"><button id="newCycleButton" type="button" class="outline-button">Novo ciclo</button></div>
+    <div class="modal-divider"></div><h3>Foto da capa</h3><p class="helper">Coloque sua fotografia no arquivo <code>assets/ana-luiza.jpg</code> do site e publique no GitHub Pages. A capa mostrará a foto automaticamente.</p>
+    <div class="modal-divider"></div><h3>Segurança dos dados e backup</h3><p class="helper">Os registros persistem neste mesmo navegador/dispositivo, mas não sincronizam entre celulares. Limpar dados do navegador pode apagá-los. Exporte um backup periodicamente.</p><div class="backup-actions"><button type="button" id="downloadBackup" class="outline-button">↓ Baixar backup</button><button type="button" id="importBackup" class="outline-button">↑ Restaurar backup</button><input id="backupFileInput" type="file" accept=".json,application/json" hidden></div>
+    <p class="privacy-warning">Atenção: o GitHub Pages hospeda uma página acessível pela web. A foto e a rotina escrita nos arquivos do site podem ser vistas por quem acessar o endereço. Os registros feitos na página permanecem no dispositivo, salvo quando exportados manualmente.</p>
+    </div><div class="modal-footer"><button id="saveSettings" class="primary-button" value="confirm" type="button">Salvar alterações</button></div>
+  </form></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

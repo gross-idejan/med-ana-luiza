@@ -1,0 +1,13 @@
+FOTO DA CAPA
+
+Coloque nesta pasta uma imagem JPG com o nome EXATO:
+
+ana-luiza.jpg
+
+Caminho final: assets/ana-luiza.jpg
+
+Preferencia: foto vertical (retrato), resolucao aproximada 800 x 1000 px.
+O site funciona mesmo se a foto nao estiver presente: nesse caso mostra "AL".
+
+IMPORTANTE: qualquer foto enviada ao GitHub Pages podera ser acessada
+publicamente por quem souber o endereco do site.
